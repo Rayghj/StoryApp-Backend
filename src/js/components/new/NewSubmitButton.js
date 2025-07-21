@@ -4,7 +4,9 @@ import LitWithoutShadowDom from '../root/LitWithoutShadowDom';
 class NewSubmitButton extends LitWithoutShadowDom {
   render() {
     return html`
-      <button class="new-submit-button" type="submit">Submit</button>
+      <div class="new-submit-button-container">
+        <button class="new-submit-button" type="submit">Submit</button> 
+      </div>
     `;
   }
 }

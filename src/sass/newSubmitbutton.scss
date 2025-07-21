@@ -15,17 +15,22 @@ $font-bold: 600;
   cursor: pointer;
 }
 
-.new-submit-button {
-  @include button-submit;
-  background-color: $button-bg;
-  color: $base-color;
-  font-size: 1rem;
-  font-weight: $font-bold;
+.new-submit-button-container {
+  display: flex;
+  justify-content: flex-end;
+  
+  .new-submit-button {
+    @include button-submit;
+    background-color: $button-bg;
+    color: $base-color;
+    font-size: 1rem;
+    font-weight: $font-bold;
 
-  &:hover {
-    background-color: $hover-base;
-    border-color: $hover-base;  
-    color: $hover-font;
-    transition: all 0.1s ease-in-out;
+    &:hover {
+      background-color: $hover-base;
+      border-color: $hover-base;  
+      color: $hover-font;
+      transition: all 0.1s ease-in-out;
+    }
   }
 }
