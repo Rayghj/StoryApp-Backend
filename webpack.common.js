@@ -5,11 +5,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const htmlWebpackPluginConfig = {
   meta: {
-    viewport: 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
+    viewport:
+      'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
     'theme-color': '#F7CFD8',
   },
   templateParameters: {
-    brandName: 'TUY\'S',
+    brandName: "TUY'S",
   },
 };
 
@@ -65,6 +66,18 @@ module.exports = {
       title: 'About',
       filename: 'about/about.html',
       template: path.resolve(__dirname, 'src/views/about/about.html'),
+      ...htmlWebpackPluginConfig,
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Login',
+      filename: 'auth/login.html',
+      template: path.resolve(__dirname, 'src/views/auth/login.html'),
+      ...htmlWebpackPluginConfig,
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Register',
+      filename: 'auth/register.html',
+      template: path.resolve(__dirname, 'src/views/auth/register.html'),
       ...htmlWebpackPluginConfig,
     }),
 

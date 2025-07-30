@@ -1,29 +1,32 @@
 import { html, nothing } from 'lit';
 import LitWithoutShadowDom from '../root/LitWithoutShadowDom';
- 
+
 class NewImageStory extends LitWithoutShadowDom {
   static properties = {
     inputId: { type: String, reflect: true },
     defaultImage: { type: String, reflect: true },
     defaultImageAlt: { type: String, reflect: true },
- 
+
     invalidFeedbackMessage: { type: String, reflect: true },
     validFeedbackMessage: { type: String, reflect: true },
- 
+
     required: { type: Boolean, reflect: true },
   };
- 
+
   constructor() {
     super();
- 
+
     this.type = 'text';
     this.defaultImage = '';
     this.defaultImageAlt = '';
   }
- 
+
   render() {
     return html`
-      <div style="width: 100%; height: 20rem" class="mb-3 ${!this.defaultImage ? 'd-none' : ''}">
+      <div
+        style="width: 100%; height: 20rem"
+        class="mb-3 ${!this.defaultImage ? 'd-none' : ''}"
+      >
         ${this._imagePreviewTemplate()}
       </div>
       <input
@@ -34,24 +37,23 @@ class NewImageStory extends LitWithoutShadowDom {
         ?required=${this.required}
         @change=${this._updatePhotoPreview}
       />
- 
+
       ${this._feedbackTemplate()}
     `;
   }
- 
+
   _updatePhotoPreview() {
-    const imgChange = document.querySelector('#validationCustomEvidenceImgChange');
-    const imgInput = document.querySelector('#validationCustomEvidence');
- 
+    const imgChange = document.querySelector('#validationCustomImgChange');
+    const imgInput = document.querySelector('#validationCustomImg');
+
     let imgOri = null;
     if (this.defaultImage) {
-      imgOri = document.querySelector('#validationCustomEvidenceImg');
+      imgOri = document.querySelector('#validationCustomImgOri');
     }
- 
+
     const photo = imgInput.files[0];
     if (!photo) return;
- 
- 
+
     const reader = new FileReader();
     reader.onload = (event) => {
       if (this.defaultImage) {
@@ -61,10 +63,10 @@ class NewImageStory extends LitWithoutShadowDom {
       imgChange.classList.remove('d-none');
       imgChange.style.backgroundImage = `url('${event.target.result}')`;
     };
- 
+
     reader.readAsDataURL(photo);
   }
- 
+
   _feedbackTemplate() {
     let validFeedbackTemplate = '';
     let invalidFeedbackTemplate = '';
@@ -78,10 +80,10 @@ class NewImageStory extends LitWithoutShadowDom {
         <div class="invalid-feedback">${this.invalidFeedbackMessage}</div>
       `;
     }
- 
+
     return html`${validFeedbackTemplate}${invalidFeedbackTemplate}`;
   }
- 
+
   _imagePreviewTemplate() {
     const imgChangeTemplate = html`
       <div
@@ -91,7 +93,7 @@ class NewImageStory extends LitWithoutShadowDom {
           background-position: center;
           background-size: contain;
         "
-        id="${this.inputId || nothing}ImgChange"
+        id="${this.inputId || nothing}Change"
       ></div>
     `;
     if (this.defaultImage) {
@@ -100,15 +102,14 @@ class NewImageStory extends LitWithoutShadowDom {
           class="img-fluid h-100"
           src="${this.defaultImage}"
           alt="${this.defaultImageAlt}"
-          id="${this.inputId || nothing}Img"
+          id="${this.inputId || nothing}Ori"
         />
         ${imgChangeTemplate}
       `;
     }
- 
+
     return html` ${imgChangeTemplate} `;
   }
 }
- 
- 
+
 customElements.define('new-image-story', NewImageStory);

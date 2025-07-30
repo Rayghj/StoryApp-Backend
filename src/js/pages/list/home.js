@@ -1,14 +1,29 @@
+import UserAuthChecker from '../auth/user-auth-checker';
+import ApiRequest from '../../network/apirequest';
+import '../../components/LoadIndicator.js';
+
 const Home = {
   async init() {
+    UserAuthChecker.checkLoginState();
+
     await this._initialData();
     this._initialListener();
   },
 
   async _initialData() {
-    const fetchStories = await fetch('/DataDummy/DATA.json');
-    const response = await fetchStories.json();
-    this._listStories = response.listStory;
-    this._populateStoriesToList(this._listStories);
+    const storySection = document.querySelector('#listStories');
+    if (storySection) {
+      storySection.innerHTML = '<load-indicator></load-indicator>';
+    }
+
+    try {
+      const response = await ApiRequest.getAll();
+
+      this._listStories = response.data.listStory;
+      this._populateStoriesToList(this._listStories);
+    } catch (error) {
+      console.error(error);
+    }
   },
 
   _initialListener() {
@@ -27,24 +42,24 @@ const Home = {
   _populateStoriesToList(listStory = null) {
     if (!(typeof listStory === 'object')) {
       throw new Error(
-        `Parameter listStory should be an object. The value is ${listStory}`,
+        `Parameter listStory should be an object. The value is ${listStory}`
       );
     }
- 
+
     if (!Array.isArray(listStory)) {
       throw new Error(
-        `Parameter listStory should be an array. The value is ${listStory}`,
+        `Parameter listStory should be an array. The value is ${listStory}`
       );
     }
- 
+
     const storySection = document.querySelector('#listStories');
- 
+
     storySection.innerHTML = '';
     if (listStory.length <= 0) {
       storySection.innerHTML = this._templateEmptyStories();
       return;
     }
- 
+
     listStory.forEach((item, sty) => {
       storySection.innerHTML += this._templateStories(sty, listStory[sty]);
     });
@@ -52,11 +67,19 @@ const Home = {
 
   _populateDetailStory(listStory) {
     if (!(typeof listStory === 'object')) {
-      throw new Error(`Parameter listStory should be an object. The value is ${listStory}`);
+      throw new Error(
+        `Parameter listStory should be an object. The value is ${listStory}`
+      );
     }
-    const imgStoryDetail = document.querySelector('#storyDetailModal #imgStoryDetail');
-    const noteStoryDetail = document.querySelector('#storyDetailModal #noteStoryDetail');
-    const nameStoryDetail = document.querySelector('#storyDetailModal #nameDetailStory');
+    const imgStoryDetail = document.querySelector(
+      '#storyDetailModal #imgStoryDetail'
+    );
+    const noteStoryDetail = document.querySelector(
+      '#storyDetailModal #noteStoryDetail'
+    );
+    const nameStoryDetail = document.querySelector(
+      '#storyDetailModal #nameDetailStory'
+    );
     imgStoryDetail.setAttribute('src', listStory.photoUrl);
     imgStoryDetail.setAttribute('alt', listStory.name);
     nameStoryDetail.textContent = listStory.name;
@@ -80,9 +103,8 @@ const Home = {
       </div>  
     `;
   },
- 
-  _templateEmptyStories() {
 
+  _templateEmptyStories() {
     return `
       
           <div class="text-center">Tidak ada cerita untuk ditampilkan</div>
@@ -92,12 +114,20 @@ const Home = {
 
 function formatIndonesianDate(targetDate) {
   const date = new Date(targetDate);
-  const days = [
-    "Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"
-  ];
+  const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
   const months = [
-    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember',
   ];
   const dayName = days[date.getDay()];
   const day = date.getDate();
@@ -105,5 +135,5 @@ function formatIndonesianDate(targetDate) {
   const year = date.getFullYear();
   return `${dayName}, ${day} ${month} ${year}`;
 }
- 
+
 export default Home;

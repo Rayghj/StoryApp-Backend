@@ -1,14 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/lit/lit/main/packages/localize-tools/config.schema.json",
   "sourceLocale": "id",
-  "targetLocales": [
-    "en",
-    "fr",
-    "es"
-  ],
-  "inputFiles": [
-    "./src/js/**/*.js"
-  ],
+  "targetLocales": ["en", "fr", "es"],
+  "inputFiles": ["./src/js/**/*.js"],
   "output": {
     "mode": "runtime",
     "outputDir": "./src/generated/locales",

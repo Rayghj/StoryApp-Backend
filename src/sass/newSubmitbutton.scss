@@ -3,7 +3,7 @@ $padding-v: 0.25rem;
 $padding-h: 1.5rem;
 $button-bg: #fad59a;
 $base-color: #000;
-$hover-base: #F4F8D3;
+$hover-base: #f4f8d3;
 $hover-font: #f5ac36;
 $font-bold: 600;
 
@@ -18,7 +18,7 @@ $font-bold: 600;
 .new-submit-button-container {
   display: flex;
   justify-content: flex-end;
-  
+
   .new-submit-button {
     @include button-submit;
     background-color: $button-bg;
@@ -28,7 +28,7 @@ $font-bold: 600;
 
     &:hover {
       background-color: $hover-base;
-      border-color: $hover-base;  
+      border-color: $hover-base;
       color: $hover-font;
       transition: all 0.1s ease-in-out;
     }

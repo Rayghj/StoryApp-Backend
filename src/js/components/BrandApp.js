@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
- 
+
 class BrandApp extends LitElement {
   static properties = {
     brandName: { type: String, reflect: true },
@@ -19,12 +19,8 @@ class BrandApp extends LitElement {
   `;
 
   render() {
-    return html`
-      <span>
-        ${this.brandName || 'TUY\'S'}
-      </span>
-    `;
+    return html` <span> ${this.brandName || "TUY'S"} </span> `;
   }
 }
- 
+
 customElements.define('brand-app', BrandApp);

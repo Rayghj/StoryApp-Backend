@@ -1,5 +1,9 @@
+import UserAuthChecker from '../auth/user-auth-checker';
+
 const About = {
-  async init() {},
+  async init() {
+    UserAuthChecker.checkLoginState();
+  },
 };
 
 export default About;

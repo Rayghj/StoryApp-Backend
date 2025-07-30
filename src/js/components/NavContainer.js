@@ -1,11 +1,11 @@
 import { html } from 'lit';
 import LitWithoutShadowDom from './root/LitWithoutShadowDom';
- 
+
 class NavContainer extends LitWithoutShadowDom {
   constructor() {
     super();
   }
- 
+
   render() {
     return html`
       <nav class="navbar bg-primary-subtle fixed-top">
@@ -28,5 +28,5 @@ class NavContainer extends LitWithoutShadowDom {
     `;
   }
 }
- 
+
 customElements.define('nav-container', NavContainer);
